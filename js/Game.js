@@ -48,7 +48,6 @@ class Game {
 
     fuels = new Group();
     powerCoins = new Group();
-    obstacles = new Group(); //C41 //SA
 
     // Adding fuel sprite in the game
     this.addSprites(fuels, 4, fuelImage, 0.02);
@@ -56,29 +55,42 @@ class Game {
     // Adding coin sprite in the game
     this.addSprites(powerCoins, 18, powerCoinImage, 0.09);
 
-    //C41 //BP //SA
-    var obstaclesPositions = [
-      { x: width / 2 + 250, y: height - 800, image: obstacle2Image },
+    obstacle1 = new Group(); 
+    obstacle2 = new Group(); 
+    var obstacle1Positions = [
       { x: width / 2 - 150, y: height - 1300, image: obstacle1Image },
       { x: width / 2 + 250, y: height - 1800, image: obstacle1Image },
+      { x: width / 2 - 180, y: height - 3300, image: obstacle1Image },
+     
+      { x: width / 2 - 150, y: height - 4300, image: obstacle1Image },
+      { x: width / 2, y: height - 5300, image: obstacle1Image },
+    ];
+
+    var obstacle2Positions = [
+      { x: width / 2 + 250, y: height - 800, image: obstacle2Image },
       { x: width / 2 - 180, y: height - 2300, image: obstacle2Image },
       { x: width / 2, y: height - 2800, image: obstacle2Image },
-      { x: width / 2 - 180, y: height - 3300, image: obstacle1Image },
+     
       { x: width / 2 + 180, y: height - 3300, image: obstacle2Image },
       { x: width / 2 + 250, y: height - 3800, image: obstacle2Image },
-      { x: width / 2 - 150, y: height - 4300, image: obstacle1Image },
       { x: width / 2 + 250, y: height - 4800, image: obstacle2Image },
-      { x: width / 2, y: height - 5300, image: obstacle1Image },
       { x: width / 2 - 180, y: height - 5500, image: obstacle2Image }
     ];
 
     //Adding obstacles sprite in the game
     this.addSprites(
-      obstacles,
-      obstaclesPositions.length,
+      obstacle1,
+      obstacle1Positions.length,
       obstacle1Image,
       0.04,
-      obstaclesPositions
+      obstacle1Positions
+    );
+    this.addSprites(
+      obstacle2,
+      obstacle2Positions.length,
+      obstacle2Image,
+      0.04,
+      obstacle2Positions
     );
   }
 
@@ -338,7 +350,7 @@ class Game {
 
   //C41 //SA
   handleObstacleCollision(index) {
-    if (cars[index - 1].collide(obstacles)) {
+    if(cars[index-1].collide(obstacle1)||cars[index-1].collide(obstacle2)){
       //C41 //TA
       if (this.leftKeyActive) {
         player.positionX += 100;
